@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Sopinet\UserBundle\Model\BaseUser;
 
+use Sopinet\GCMBundle\Model\DeviceUserInterface;
+
 use Doctrine\ORM\Event\OnFlushEventArgs;
 /**
 * @ORM\Entity(repositoryClass="Sopinet\GCMBundle\Entity\DeviceRepository")
@@ -23,8 +25,9 @@ class Device
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sopinet\UserBundle\Entity\User", inversedBy="devices")
+     * @ORM\ManyToOne(targetEntity="Sopinet\GCMBundle\Model\DeviceUserInterface", inversedBy="devices")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     * @var DeviceUserInterface
      */
     protected $user;
     /**

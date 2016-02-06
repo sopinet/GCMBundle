@@ -30,5 +30,9 @@
         public $time;
 
         public $device;
+
+        public $groupId;
+
+        public $username;
     }
 ?>
