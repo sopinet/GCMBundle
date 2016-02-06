@@ -4,11 +4,10 @@
 	"description" : "Bundle for GCMIntegration",
 	"type": "symfony-bundle",
 	"license": "GPL2",
-	"autoload" : {
-		"psr-0" : {
-			"" : "src/"
-		}
+	"autoload": {
+		"psr-0": { "Sopinet\\GCMBundle": "" }
 	},
+  	"target-dir": "Sopinet/GCMBundle",
 	"authors": [
 		{
 		"name": "Alejandro Arrabal",
