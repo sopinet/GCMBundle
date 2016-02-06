@@ -56,9 +56,8 @@ class GCMHelper {
 	}
         $mes['to'] = $to;
 
-	// TODO: Add paramter configuration
-        if (true) {
-	    // TODO: Review Name
+	$config = $this->_container->getParameter('sopinet_gcm.config');
+        if ($config['background']) {
             $this->_container->get('old_sound_rabbit_mq.send_gcmbundle_producer')->setContentType('application/json');
             $this->_container->get('old_sound_rabbit_mq.send_gcmbundle_producer')->publish(json_encode($mes));
         } else {
