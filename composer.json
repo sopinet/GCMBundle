@@ -1,5 +1,5 @@
 {
-	"name" : "GCMBundle",
+	"name" : "sopinet/gcm-bundle",
 	"version": "0.0.1",
 	"description" : "Bundle for GCMIntegration",
 	"type": "symfony-bundle",
