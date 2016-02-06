@@ -1,0 +1,33 @@
+{
+	"name" : "GCMBundle",
+	"version": "0.0.1",
+	"description" : "Bundle for GCMIntegration",
+	"type": "symfony-bundle",
+	"license": "GPL2",
+	"autoload" : {
+		"psr-0" : {
+			"" : "src/"
+		}
+	},
+	"authors": [
+		{
+		"name": "Alejandro Arrabal",
+		"email": "aarrabal@sopinet.com",
+		"homepage": "http://sopinet.com"
+		},
+		{
+		"name": "Juan Martos",
+		"email": "jmartos@sopinet.com",
+		"homepage": "http://sopinet.com"
+		},
+		{
+		"name": "Fernando Hidalgo",
+		"email": "fernando@sopinet.com",
+		"homepage": "http://sopinet.com"
+		}
+	],
+	"require" : {
+      		"nelmio/api-doc-bundle": "dev-master",
+      		"richsage/rms-push-notifications-bundle": "dev-master"
+	}
+}
