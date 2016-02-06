@@ -27,11 +27,11 @@ class GCMHelper {
      * @param $type('Android'|'iOS')
      * @return mixed
      */
-    public function addDevice($device_id, $user, $type='Android')
+    public function addDevice($device_id, $user, $token, $type='Android')
     {
         $em = $this->_container->get("doctrine.orm.entity_manager");
         $reDevice = $em->getRepository('SopinetGCMBundle:Device');
-        return $reDevice->addDevice($device_id, $user,$type);
+        return $reDevice->addDevice($device_id, $user, $token, $type);
     }
 
     /**
@@ -48,11 +48,26 @@ class GCMHelper {
         $mes['msgid'] = $msg->msgid;
         $mes['phone'] = $msg->phone;
         $mes['time'] = $msg->time;
-        if ($msg->device==$msg::ANDROID) {
-            $this->sendGCMessage($mes, $to);
-        } elseif ($msg->device==$msg::IOS) {
-            $this->sendAPNMessage($mes, $to, $msg->type!='received');
-        }
+	if (property_exists($msg, 'groupId')) {
+        	$mes['groupId']= $msg->groupId;
+	}
+	if (property_exists($msg, 'username')) {
+	        $mes['username']=$msg->username;
+	}
+        $mes['to'] = $to;
+
+	// TODO: Add paramter configuration
+        if (true) {
+	    // TODO: Review Name
+            $this->_container->get('old_sound_rabbit_mq.send_gcmbundle_producer')->setContentType('application/json');
+            $this->_container->get('old_sound_rabbit_mq.send_gcmbundle_producer')->publish(json_encode($mes));
+        } else {
+		if ($msg->device==$msg::ANDROID) {
+		    $this->sendGCMessage($mes, $to);
+		} elseif ($msg->device==$msg::IOS) {
+		    $this->sendAPNMessage($mes, $to, $msg->type!='received');
+		}
+	}
     }
 
     /**
@@ -117,6 +132,27 @@ class GCMHelper {
         $this->_container->get('rms_push_notifications')->send($message);
     }
 
+    /**
+     * @param $text
+     * @param $from
+     * @param $type
+     * @param $time
+     * @param $phone
+     * @param $toToken
+     */
+    public function sendNotification($text, $groupId, $type, $time, $phone, $toToken, $deviceType)
+    {
+        $mes['type'] = $type;
+        $mes['text'] = $text;
+        $mes['groupId']= $groupId;
+        $mes['phone'] = $phone;
+        $mes['time'] =$time->getTimestamp()*1000;
+        if ($deviceType==Msg::ANDROID) {
+            $this->sendGCMessage($mes, $toToken);
+        } elseif ($deviceType==Msg::IOS) {
+            $this->sendAPNMessage($mes, $toToken);
+        }
+    }
 
     /**
      * @param $text
