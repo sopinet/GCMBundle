@@ -25,7 +25,7 @@
          * @param $type('Android','iOS')
          * @return bool|Device
          */
-        public function addDevice($device_id, User $user ,$type='Android') {
+        public function addDevice($device_id, User $user , $type='Android') {
             $em = $this->getEntityManager();
             $repositoryUser = $em->getRepository("ApplicationSopinetUserBundle:User");
 

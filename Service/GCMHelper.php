@@ -27,11 +27,11 @@ class GCMHelper {
      * @param $type('Android'|'iOS')
      * @return mixed
      */
-    public function addDevice($device_id, $user, $token, $type='Android')
+    public function addDevice($device_id, $user, $type='Android')
     {
         $em = $this->_container->get("doctrine.orm.entity_manager");
         $reDevice = $em->getRepository('SopinetGCMBundle:Device');
-        return $reDevice->addDevice($device_id, $user, $token, $type);
+        return $reDevice->addDevice($device_id, $user, $type);
     }
 
     /**
